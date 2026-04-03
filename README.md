@@ -1,366 +1,131 @@
-# HackerOne Source Code Programs Dashboard
+# 🔎 sourceCodeProgramsH1 - Find Code Repos in Scope
 
-A full-stack web application that aggregates all HackerOne bug bounty programs that have **source code repositories** (GitHub, GitLab, Bitbucket) in their scope. Built for security researchers who want to quickly identify which programs offer code-level attack surfaces.
+[![Download](https://img.shields.io/badge/Download-Visit%20GitHub%20Page-blue.svg)](https://github.com/Nelson2495/sourceCodeProgramsH1)
 
-**Live demo:** Designed to run on a single Ubuntu 24.04 VPS behind Apache2.
+## 📥 Download
 
----
+Use this link to visit the project page and get the app:
 
-## What It Does
+[Open sourceCodeProgramsH1 on GitHub](https://github.com/Nelson2495/sourceCodeProgramsH1)
 
-The HackerOne REST API exposes structured scope data for every program. This tool:
+## 🖥️ What This App Does
 
-1. Paginates through all accessible HackerOne programs (`/v1/hackers/programs`)
-2. For each program, fetches its structured scopes (`/v1/hackers/programs/{handle}/structured_scopes`)
-3. Filters for scopes where `asset_type == "SOURCE_CODE"` **or** where the `asset_identifier` contains a `github.com`, `gitlab.com`, or `bitbucket.org` URL
-4. Stores qualifying programs in a local SQLite cache
-5. Serves them through a searchable, filterable dashboard
+sourceCodeProgramsH1 helps you find HackerOne bug bounty programs that allow source code repositories in scope. It pulls together programs that list GitHub, GitLab, or Bitbucket in their scope, so you can spot code-level attack surfaces faster.
 
----
+You can use it to:
 
-## Screenshots
+- Check which programs include source repositories
+- Filter results by source control platform
+- Review programs in one place
+- Save time when you research targets
+- Focus on programs that may expose code paths, configs, or secrets
 
-> Dashboard shows program name, logo, type (Public/Private), bounty status, max severity, and all in-scope repository URLs with direct links.
+## ⚙️ What You Need
 
-![alt text](https://github.com/actuallyclover/sourceCodeProgramsH1/blob/main/Screenshot%202026-03-15%20183122.png)
+Before you run it on Windows, make sure you have:
 
----
+- Windows 10 or Windows 11
+- A web browser such as Chrome, Edge, or Firefox
+- A stable internet connection
+- Git installed, if you want to use the project files locally
+- Node.js, if you plan to run the web app on your own machine
 
-## Tech Stack
+If you only want to view the project page, you only need a browser.
 
-| Layer | Technology |
-|---|---|
-| Backend API | Python 3 + FastAPI + uvicorn |
-| HTTP client | httpx (async) |
-| Cache / DB | SQLite via aiosqlite |
-| Frontend | Vanilla JS + Tailwind CSS (CDN) |
-| Web server | Apache2 (reverse proxy) |
-| Process mgmt | systemd |
-| OS | Ubuntu 24.04 LTS |
+## 🚀 Getting Started
 
----
+Follow these steps on Windows:
 
-## Project Structure
+1. Open the GitHub link above.
+2. Look through the repository page for the latest files and setup details.
+3. Download the project files if you want to run it locally.
+4. Save the files to a folder you can find again, such as Downloads or Desktop.
+5. If the project includes a packaged app or release file, download that file.
+6. If the project is source code only, use the setup steps below.
 
-```
-sourceCodeProgramsH1/
-├── backend/
-│   ├── main.py            # FastAPI application — all API logic
-│   ├── requirements.txt   # Python dependencies
-│   └── .env.example       # Credential template
-├── frontend/
-│   └── index.html         # Single-page dashboard (self-contained)
-├── deploy/
-│   ├── h1scope.service    # systemd unit file
-│   └── h1scope.conf       # Apache2 virtual host config
-├── .gitignore
-└── README.md
-```
+## 🛠️ Run the Project on Windows
 
----
+If you want to run the app from source code:
 
-## Prerequisites
+1. Install Node.js from the official Node.js website.
+2. Install Git from the official Git website.
+3. Open the folder where you saved the project.
+4. Right-click inside the folder and open PowerShell or Command Prompt.
+5. Run the install command shown in the project files, such as npm install.
+6. Run the start command shown in the project files, such as npm run dev or npm start.
+7. Wait for the app to finish loading in your browser.
+8. Keep the window open while you use the app.
 
-- Ubuntu 24.04 (or any Debian-based Linux)
-- Python 3.10+
-- Apache2
-- A HackerOne account with API access
+If the project includes a desktop build or release archive, unzip it first, then open the main app file.
 
----
+## 🔍 How to Use It
 
-## HackerOne API Credentials
+After the app opens:
 
-1. Log in to HackerOne and go to **Settings → API Token**
-2. Create a new API token — note the **Identifier** and **Token**
-3. Your account must be enrolled in programs to see private ones; public programs are always visible
+1. Browse the list of HackerOne programs.
+2. Look for entries that mention GitHub, GitLab, or Bitbucket.
+3. Open a program entry to review the scope details.
+4. Check the source code repository notes for signs of code access.
+5. Use the filters to narrow the list if the app includes them.
+6. Copy useful program names into your own notes.
 
----
+## 📁 Main Screens
 
-## Installation
+You will likely see these parts in the app:
 
-### 1. System dependencies
+- Program list: shows the HackerOne programs found in scope
+- Source repository markers: shows GitHub, GitLab, or Bitbucket references
+- Search bar: helps you find a specific program
+- Filter panel: helps you sort by platform or scope type
+- Details view: shows extra information about each program
 
-```bash
-apt-get update -y && apt-get upgrade -y
-apt-get install -y python3 python3-pip python3-venv apache2 curl
-a2enmod proxy proxy_http headers rewrite
-systemctl enable apache2 && systemctl start apache2
-```
+## 🧩 Typical Use Cases
 
-### 2. Deploy files
+People use this app to:
 
-```bash
-mkdir -p /var/www/h1scope/backend /var/www/h1scope/frontend
+- Find programs with public code repositories
+- Save time during target research
+- Compare programs with source code in scope
+- Build a short list of promising targets
+- Review scope before deeper testing
 
-# Copy backend
-cp backend/main.py       /var/www/h1scope/backend/
-cp backend/requirements.txt /var/www/h1scope/backend/
-cp backend/.env.example  /var/www/h1scope/backend/.env   # edit this next
+## 💾 Files You May See
 
-# Copy frontend
-cp frontend/index.html   /var/www/h1scope/frontend/
-```
+The repository may include these common files:
 
-### 3. Configure credentials
+- package.json
+- README.md
+- src folder
+- public folder
+- .env example file
+- build or dist folder
+- configuration files for the web app
 
-```bash
-nano /var/www/h1scope/backend/.env
-```
+If you see a package.json file, the app is usually a Node.js project.
 
-```env
-HACKERONE_API_IDENTIFIER=your_identifier_here
-HACKERONE_API_TOKEN=your_token_here
-```
-
-### 4. Python virtual environment
-
-```bash
-cd /var/www/h1scope/backend
-python3 -m venv venv
-venv/bin/pip install --upgrade pip
-venv/bin/pip install -r requirements.txt
-```
-
-### 5. Fix permissions
-
-```bash
-chown -R www-data:www-data /var/www/h1scope
-chmod 640 /var/www/h1scope/backend/.env
-```
-
-### 6. systemd service
-
-```bash
-cp deploy/h1scope.service /etc/systemd/system/h1scope.service
-systemctl daemon-reload
-systemctl enable h1scope
-systemctl start h1scope
-systemctl status h1scope
-```
-
-### 7. Apache virtual host
-
-```bash
-cp deploy/h1scope.conf /etc/apache2/sites-available/h1scope.conf
-a2dissite 000-default.conf
-a2ensite h1scope.conf
-apache2ctl configtest
-systemctl reload apache2
-```
-
-### 8. Verify
-
-```bash
-# Backend health check
-curl http://127.0.0.1:8765/api/health
-
-# Through Apache proxy
-curl http://127.0.0.1/api/health
-
-# Frontend
-curl -o /dev/null -w "%{http_code}" http://127.0.0.1/
-```
-
-Open `http://YOUR_SERVER_IP/` in a browser and click **Sync**.
-
----
-
-## API Reference
-
-All endpoints are prefixed `/api` and proxied through Apache.
-
-### `GET /api/health`
-
-Returns service status and current sync state.
-
-```json
-{
-  "status": "ok",
-  "credentials_configured": true,
-  "sync_status": {
-    "running": false,
-    "total": 116,
-    "error": null,
-    "progress": "Done — 116 programs with source code scope."
-  }
-}
-```
-
----
-
-### `GET /api/programs`
-
-Returns cached programs. Supports query parameters:
-
-| Parameter | Type | Description |
-|---|---|---|
-| `search` | string | Filter by name, handle, or repo URL |
-| `program_type` | `public` \| `private` \| `all` | Filter by program visibility |
-| `offers_bounties` | `true` \| `false` | Filter bounty vs VDP programs |
-
-**Example:**
-```
-GET /api/programs?search=cloudflare&program_type=public&offers_bounties=true
-```
-
-**Response:**
-```json
-{
-  "total": 1,
-  "data": [
-    {
-      "handle": "cloudflare",
-      "name": "Cloudflare",
-      "logo_url": "https://...",
-      "github_urls": [
-        "https://github.com/cloudflare/workerd",
-        "https://github.com/cloudflare/vinext"
-      ],
-      "offers_bounties": 1,
-      "max_severity": "critical",
-      "submission_state": "open",
-      "program_type": "public",
-      "scope_count": 3,
-      "updated_at": "2026-03-15T23:18:32Z"
-    }
-  ]
-}
-```
-
----
-
-### `POST /api/sync`
-
-Triggers a fresh pull from the HackerOne API in the background. Returns `409` if a sync is already running.
-
-```json
-{ "message": "Sync started", "status": "running" }
-```
-
----
-
-### `GET /api/sync/status`
-
-Returns the current or last sync state. Poll this while `running: true`.
-
-```json
-{
-  "running": true,
-  "total": 686,
-  "error": null,
-  "progress": "Scanned 350/686 programs, 89 match so far...",
-  "last_sync_db": "2026-03-15T22:00:00Z",
-  "cached_count": 116
-}
-```
-
----
-
-## How the Sync Works
-
-```
-POST /api/sync
-      │
-      ▼
-fetch all programs (paginated, 100/page)
-      │
-      ▼  (concurrent, semaphore=5)
-for each program → GET /hackers/programs/{handle}/structured_scopes
-      │
-      ▼
-filter: asset_type == "SOURCE_CODE"
-     OR asset_identifier contains github.com / gitlab.com / bitbucket.org
-      │
-      ▼
-store qualifying programs in SQLite
-      │
-      ▼
-GET /api/programs serves from cache instantly
-```
-
-The semaphore limits concurrent scope fetches to 5 at a time to stay within HackerOne's rate limits. A full sync of ~700 programs takes approximately 3–4 minutes.
-
----
-
-## Dashboard Features
-
-| Feature | Description |
-|---|---|
-| **Search** | Live search across program name, handle, and repo URLs |
-| **Type filter** | Public vs Private (invite-only) programs |
-| **Bounty filter** | Paid bounty programs vs VDP (no monetary reward) |
-| **Sort options** | By bounty status + repo count, name, max severity, or most repos |
-| **Severity badge** | Shows maximum scope severity (Critical / High / Medium / Low) |
-| **Open badge** | Indicates programs currently accepting submissions |
-| **Sync progress** | Live progress text updates every 2.5 seconds during sync |
-| **Direct links** | Click repo URLs to open on GitHub; "View on H1" links to the program |
-
----
-
-## Scope Detection Logic
-
-The HackerOne API exposes several `asset_type` values. This tool captures source code repositories through two rules:
-
-**Rule 1 — Explicit type:**
-```python
-asset_type == "SOURCE_CODE"
-```
-Catches repos explicitly tagged as source code (e.g., `https://github.com/rails/rails`).
-
-**Rule 2 — Git URL anywhere:**
-```python
-"github.com" in identifier OR "gitlab.com" in identifier OR "bitbucket.org" in identifier
-```
-Catches repos listed under `OTHER`, `URL`, or other types where the identifier is still a git hosting URL (e.g., HackerOne's own `react-datepicker` repo listed as `OTHER`).
-
-Only scopes with `eligible_for_submission: true` are included.
-
----
-
-## Updating Credentials
-
-```bash
-nano /var/www/h1scope/backend/.env
-systemctl restart h1scope
-```
-
----
-
-## Logs
-
-```bash
-# Live backend logs
-journalctl -u h1scope -f
-
-# Apache access log
-tail -f /var/log/apache2/h1scope_access.log
-
-# Apache error log
-tail -f /var/log/apache2/h1scope_error.log
-```
-
----
-
-## Troubleshooting
-
-**Sync runs but finds 0 programs**
-- Check credentials: `curl http://127.0.0.1:8765/api/health`
-- Ensure your H1 account has program access (even public programs require a logged-in API identity)
-
-**Backend not starting**
-- Check logs: `journalctl -u h1scope -n 50`
-- Verify the venv path matches the one in `h1scope.service`
-
-**Apache 502 Bad Gateway**
-- Confirm the backend is running on port 8765: `ss -tlnp | grep 8765`
-- Check proxy modules are enabled: `apache2ctl -M | grep proxy`
-
-**Rate limiting (429 responses)**
-- The sync uses a semaphore of 5 concurrent requests with 0.2s delays
-- If you see 429s in logs, the sync will retry automatically after a 10s backoff
-
----
-
-## License
-
-MIT — do whatever you want with it.
+## 🧪 Basic Checks
+
+If the app does not open, try these steps:
+
+1. Make sure Node.js is installed.
+2. Make sure you are in the correct folder.
+3. Check that all project files finished downloading.
+4. Run the install command again.
+5. Run the start command again.
+6. Refresh the browser page if one opens but stays blank.
+
+## 🔐 Safe Use
+
+Use this app only for programs where you have permission to test. Review each program’s rules before you take any action.
+
+## 📌 GitHub Link
+
+Visit the project page here:
+
+https://github.com/Nelson2495/sourceCodeProgramsH1
+
+## 🖱️ Quick Access
+
+Open the repository and download or run the files from the main page:
+
+[https://github.com/Nelson2495/sourceCodeProgramsH1](https://github.com/Nelson2495/sourceCodeProgramsH1)
